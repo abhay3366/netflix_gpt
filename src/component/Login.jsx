@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Header from "./Header";
+import { checkValidData } from "../utils/Validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
+    const email=useRef(null);
+    const password=useRef(null);
+
   const toggleSingnInform = () => {
     setIsSignForm(!isSignInForm);
   };
+  const handleButtonClick=(e)=>{
+    console.log(email.current.value, password.current.value);
+    e.preventDefault();
+    // checkValidData();
+  }
   return (
     <div>
       <Header />
@@ -21,28 +30,31 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+         
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
           />
         )}
         <input
+         ref={email}
           type="text"
           placeholder="Email"
           name="email"
           className="p-4 my-4 w-full bg-gray-700"
         />
         <input
+        ref={password}
           type="password"
           placeholder="Password"
           name="password"
           className="p-4 my-4 w-full bg-gray-700"
         />
-        <button className="p-4 my-6 bg-red-700 w-full rounded-lg">
-          {isSignInForm ? "Sign In" : "Sign Up"}{" "}
+        <button className="p-4 my-6 bg-red-700 w-full rounded-lg" onClick={handleButtonClick}>
+          {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 text-white" onClick={toggleSingnInform}>
-          {isSignInForm ? "New to Netflix ? Sign up Now" : "Already Resgistred"}{" "}
+          {isSignInForm ? "New to Netflix ? Sign up Now" : "Already Resgistred"}
         </p>
       </form>
     </div>
