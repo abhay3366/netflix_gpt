@@ -1,20 +1,19 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/Validate";
-
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
-    const email=useRef(null);
-    const password=useRef(null);
-
+  const [errorMessage, seterrorMessage] = useState("");
+  const email = useRef(null);
+  const password = useRef(null);
   const toggleSingnInform = () => {
     setIsSignForm(!isSignInForm);
   };
-  const handleButtonClick=(e)=>{
-    console.log(email.current.value, password.current.value);
+  const handleButtonClick = (e) => {
     e.preventDefault();
-    // checkValidData();
-  }
+    const message = checkValidData(email.current.value, password.current.value);
+    seterrorMessage(message);
+  };
   return (
     <div>
       <Header />
@@ -30,27 +29,30 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
-         
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
           />
         )}
         <input
-         ref={email}
+          ref={email}
           type="text"
           placeholder="Email"
           name="email"
           className="p-4 my-4 w-full bg-gray-700"
         />
         <input
-        ref={password}
+          ref={password}
           type="password"
           placeholder="Password"
           name="password"
-          className="p-4 my-4 w-full bg-gray-700"
+          className="p-4 my-4 w-full bg-gray-700 relative"
         />
-        <button className="p-4 my-6 bg-red-700 w-full rounded-lg" onClick={handleButtonClick}>
+        <p className="text-red-600 font-bold absolute ">{errorMessage}</p>
+        <button
+          className="p-4 my-6 bg-red-700 w-full rounded-lg"
+          onClick={handleButtonClick}
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
         <p className="py-4 text-white" onClick={toggleSingnInform}>
@@ -60,5 +62,4 @@ const Login = () => {
     </div>
   );
 };
-
 export default Login;
