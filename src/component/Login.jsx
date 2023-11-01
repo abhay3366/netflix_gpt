@@ -1,19 +1,46 @@
 import { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/Validate";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
+
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
   const [errorMessage, seterrorMessage] = useState("");
+
   const email = useRef(null);
   const password = useRef(null);
   const toggleSingnInform = () => {
     setIsSignForm(!isSignInForm);
   };
+
   const handleButtonClick = (e) => {
     e.preventDefault();
     const message = checkValidData(email.current.value, password.current.value);
     seterrorMessage(message);
+
+    if (message) return; // this statement say if message is found or we say if errorMessage found than return else go ahead
+
+    //signin and singup logic
+    if (!isSignInForm) {
+      //signup logic
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          seterrorMessage(errorCode+"-"+errorMessage);
+        });
+    } else {
+      // signIn logic
+    }
   };
+
   return (
     <div>
       <Header />
