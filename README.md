@@ -8,6 +8,10 @@
 - sign in form
 - form validation
 - useRef hook
+- firebase setup
+- crate signup  user account
+- implement sign in user api
+- created redux store with userSlice
 
 # for form where large number of fields than use "formik.org library"
 # features

@@ -4,13 +4,17 @@ import { checkValidData } from "../utils/Validate";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import {useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
   const [errorMessage, seterrorMessage] = useState("");
-
+  const navigate = useNavigate();
+ 
+  const name=useRef(null);
   const email = useRef(null);
   const password = useRef(null);
   const toggleSingnInform = () => {
@@ -36,12 +40,29 @@ const Login = () => {
           // Signed up
           const user = userCredential.user;
           console.log(user);
+
+          updateProfile(user, {
+            displayName: name.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
+          }).then(() => {
+            // Profile updated!
+            navigate("/browse");
+            // ...
+          }).catch((error) => {
+            seterrorMessage(error.message);
+          })
+
+
+
+          // Navigate to the browse page
+           
           // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           seterrorMessage(errorCode + "-" + errorMessage);
+          navigate("/browse")
+        
         });
     } else {
       // signIn logic
@@ -51,6 +72,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log(user);
+          navigate("/browse")
         })
         .catch((error) => {
           const errorCode = error.code;
