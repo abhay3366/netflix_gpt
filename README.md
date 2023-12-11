@@ -14,7 +14,8 @@
 - created redux store with userSlice
 - Implemented Sign Out
 - Update Profile
-- Tmd ap
+- BugFix : Sign up user displayName and profile picture update
+- Bugfix : If the user is not logged in Redrict /browse to Login and vice versa
 
 # for form where large number of fields than use "formik.org library"
 # regex for email and password validation
@@ -41,3 +42,7 @@
 # Manage user (show the user name)
   - with the help of manage user  and in manage user we go to the update a user profile 
 # Optional chaining (?.) -> when we try to access the any object must use the optional channing , it reduces the error .
+
+// Problem
+  1- if a user not logged in then it does't go to any page just writing the path
+  2- when a user is logged in then it goes on the browse page but after 

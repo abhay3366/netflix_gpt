@@ -53,7 +53,7 @@ const Login = () => {
               dispatch(
                 adduser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse");
+              // navigate("/browse");
             })
             .catch((error) => {
               seterrorMessage(error.message);
@@ -64,7 +64,7 @@ const Login = () => {
           const errorCode = error.code;
           const errorMessage = error.message;
           seterrorMessage(errorCode + "-" + errorMessage);
-          navigate("/browse");
+          // navigate("/browse");
         });
     } else {
       // signIn logic
@@ -76,7 +76,7 @@ const Login = () => {
         .then((userCredential) => {
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse");
+          // navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
