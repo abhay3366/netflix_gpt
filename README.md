@@ -12,6 +12,9 @@
 - crate signup  user account
 - implement sign in user api
 - created redux store with userSlice
+- Implemented Sign Out
+- Update Profile
+- Tmd ap
 
 # for form where large number of fields than use "formik.org library"
 # regex for email and password validation
