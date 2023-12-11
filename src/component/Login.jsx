@@ -7,14 +7,17 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { adduser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignForm] = useState(true);
   const [errorMessage, seterrorMessage] = useState("");
   const navigate = useNavigate();
- 
-  const name=useRef(null);
+  const dispatch = useDispatch();
+
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
   const toggleSingnInform = () => {
@@ -30,7 +33,6 @@ const Login = () => {
 
     //signin and singup logic
     if (!isSignInForm) {
-      //signup logic
       createUserWithEmailAndPassword(
         auth,
         email.current.value,
@@ -39,40 +41,42 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          console.log("user", user);
 
           updateProfile(user, {
-            displayName: name.current.value, photoURL: "https://example.com/jane-q-user/profile.jpg"
-          }).then(() => {
-            // Profile updated!
-            navigate("/browse");
-            // ...
-          }).catch((error) => {
-            seterrorMessage(error.message);
+            displayName: name.current.value,
+            photoURL:
+              "https://lh3.googleusercontent.com/ogw/ANLem4ZNVXsCPt6kc7NhpfQsCsupFOFdQgrl-iNTbfO6=s32-c-mo",
           })
-
-
-
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                adduser({ uid: uid, email: email, displayName: displayName })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              seterrorMessage(error.message);
+            });
           // Navigate to the browse page
-           
-          // ...
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           seterrorMessage(errorCode + "-" + errorMessage);
-          navigate("/browse")
-        
+          navigate("/browse");
         });
     } else {
       // signIn logic
-      signInWithEmailAndPassword(auth,email.current.value,
-        password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
-          // Signed in
           const user = userCredential.user;
           console.log(user);
-          navigate("/browse")
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -97,6 +101,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full bg-gray-700"
