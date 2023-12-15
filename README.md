@@ -18,6 +18,8 @@
 - Bugfix : If the user is not logged in Redrict /browse to Login and vice versa
 - Unsubscribe to the onAuthStateChanged callback
 - Add hardcoded values to the constants files
+- Register TMDB  api for and create an app & get acess token
+- Get Data from TMDB now playing moveis list api
 
 # for form where large number of fields than use "formik.org library"
 # regex for email and password validation
