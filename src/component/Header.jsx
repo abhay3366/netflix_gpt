@@ -10,8 +10,8 @@ const Header = () => {
   const dispatch=useDispatch()
   const user = useSelector((store) => store.user);
 
-  console.log(user);
-  console.log(user?.displayName);
+  // console.log(user);
+  // console.log(user?.displayName);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -28,9 +28,9 @@ const Header = () => {
    const unsubscribe= onAuthStateChanged(auth, (user) => {
       //when user signed in then if code work
       if (user) {
-        console.log(user);
+        // console.log(user);
         const { uid, email, displayName } = user;
-        console.log(uid, email, displayName);
+        // console.log(uid, email, displayName);
         dispatch(adduser({ uid: uid, email: email, displayName: displayName }));
         navigate("/browse")
 
