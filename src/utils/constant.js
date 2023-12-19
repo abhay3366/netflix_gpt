@@ -9,3 +9,4 @@ export const API_OPTIONS={
     }
 
 }
+export const IMF_CDN_URL='http://image.tmdb.org/t/p/w500/'

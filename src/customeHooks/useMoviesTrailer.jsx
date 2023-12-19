@@ -7,7 +7,7 @@ const useMoviesTriler=(moviesId)=>{
     const dispatch=useDispatch()
    
 
-  console.log(moviesId);
+//   console.log(moviesId);
   const getMoviesVideos = async () => {
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${moviesId}/videos?language=en-US`,
@@ -18,7 +18,7 @@ const useMoviesTriler=(moviesId)=>{
 
     const filterData = json.results.filter((video) => video.type == "Trailer");
     const trailer = filterData.length ? filterData[0] : json.results[0];
-    console.log("Trailer: ", trailer);
+    // console.log("Trailer: ", trailer);
     dispatch(addTrailerVideo(trailer));
   };
   useEffect(() => {
