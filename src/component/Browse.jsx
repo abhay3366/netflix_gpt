@@ -6,9 +6,12 @@ import Header from "./Header";
 import useNowPlayingMovies from "../customeHooks/useNowPalyingMovies";
 import MainContainer from "./MainContainer";
 import SecondaryContainer from "./SecondaryContainer";
+import usePopularMovies from "../customeHooks/usePopularMovies";
+
 const Browse = () => {
   //fetch data form tmdb api usei cutome hooks
   useNowPlayingMovies();
+  usePopularMovies();
 
   // !ui
   // MainContainer
