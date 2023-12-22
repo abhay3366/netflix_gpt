@@ -23,7 +23,7 @@ const useMoviesTriler=(moviesId)=>{
   };
   useEffect(() => {
     getMoviesVideos();
-  });
+  },[]);
 };
 
 
