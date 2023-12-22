@@ -5,14 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { adduser, removeuser } from "../utils/userSlice";
 import { LOGO } from "../utils/constant";
+import { toggleGptSearchView } from "../utils/gptSlice";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch=useDispatch()
   const user = useSelector((store) => store.user);
-
-  // console.log(user);
-  // console.log(user?.displayName);
-
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
@@ -23,28 +20,26 @@ const Header = () => {
         navigate("/error");
       });
   };
-
   useEffect(() => {
    const unsubscribe= onAuthStateChanged(auth, (user) => {
       //when user signed in then if code work
       if (user) {
-        // console.log(user);
         const { uid, email, displayName } = user;
-        // console.log(uid, email, displayName);
         dispatch(adduser({ uid: uid, email: email, displayName: displayName }));
         navigate("/browse")
-
         // User is signed out then else code work
       } else {
         dispatch(removeuser());
         navigate("/")
       }
     });
-
     //  Unsubscribe when component unmount this function is called and unsubscribe the onAuthStateChanged;
     return ()=> unsubscribe();
   }, []);
-
+  const handleGptSearch=()=>{
+    //toggle gpt search button
+    dispatch(toggleGptSearchView())
+  }
   return (
     <div className="absolute w-screen flex justify-between  px-8 py-2 bg-gradient-to-b  from-black z-10">
       <img
@@ -53,7 +48,9 @@ const Header = () => {
         alt="logo"
       />
       {user && (
-        <div className="flex">
+        <div className="flex p-2">
+          <button className=" h-9 p-2 rounded-lg mt-5
+          mr-2 bg-purple-800 text-white" onClick={handleGptSearch}>GPT Search</button>
           <img
             className="w-12 pt-5"
             src={LOGO}
@@ -68,5 +65,4 @@ const Header = () => {
     </div>
   );
 };
-
 export default Header;
