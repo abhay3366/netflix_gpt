@@ -6,17 +6,21 @@ import { useEffect } from "react";
 import { adduser, removeuser } from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constant";
 import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguages } from "../utils/configSlice";
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const showGptSearch=useSelector((store)=>store.gpt.showGptSearch);
+  console.log('showGptSearch: ', showGptSearch);
+
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // navigate("/");
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         navigate("/error");
       });
   };
@@ -40,6 +44,11 @@ const Header = () => {
     //toggle gpt search button
     dispatch(toggleGptSearchView());
   };
+
+  const handleLangChange=(e)=>{
+    // console.log(e.target.value)
+    dispatch(changeLanguages(e.target.value));
+  }
   return (
     <div className="absolute w-screen flex justify-between  px-8 py-2 bg-gradient-to-b  from-black z-10">
       <img
@@ -49,17 +58,17 @@ const Header = () => {
       />
       {user && (
         <div className="flex p-2">
-          <select className="m-2 bg-gray-600 mt-6 text-white p-0 h-8">
+        {showGptSearch && (          <select className="m-2 bg-gray-600 mt-6 text-white p-0 h-8  " onChange={handleLangChange}>
             {SUPPORTED_LANGUAGES.map((lang) => (
               <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>
             ))}
-          </select>
+          </select>)}
           <button
             className=" h-9 p-2 rounded-lg mt-5
           mr-2 bg-purple-800 text-white"
             onClick={handleGptSearch}
           >
-            GPT Search
+            {showGptSearch==true?"Home":"GPT Search"}
           </button>
           <img className="w-12 pt-5" src={LOGO} alt="logo" />
           <h3 className="text-teal-50 font-bold pt-5">{user?.displayName}</h3>

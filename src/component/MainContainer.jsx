@@ -7,10 +7,10 @@ const MainContainer = () => {
     const movies=useSelector((store)=>store.movies?.nowPlayingMovies);
     if(movies===null) return; //this process is no as early return
     const mainMovies=movies[1];
-    console.log('mainMovies: ', mainMovies);
+    // console.log('mainMovies: ', mainMovies);
 
     const {original_title,overview,id}=mainMovies;
-    console.log('original_title: ', original_title);
+    // console.log('original_title: ', original_title);
     
   return (
     <div>

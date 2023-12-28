@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const SecondaryContainer = () => {
     const  movies=useSelector((store)=>store.movies)
-    console.log('movies: ', movies);
+    // console.log('movies: ', movies);
     // console.log('moviessss: ', movies.PopularMovies);
 
     useEffect(() => {

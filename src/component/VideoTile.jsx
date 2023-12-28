@@ -1,7 +1,7 @@
 import React from 'react'
 
 const VideoTile = ({title,overview}) => {
-    console.log('overview: ', overview);
+    // console.log('overview: ', overview);
 
 
   return (
