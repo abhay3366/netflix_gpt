@@ -15,3 +15,6 @@ export const SUPPORTED_LANGUAGES=[
   {identifier: 'en', name: 'English'},
   {identifier: 'hindi', name: 'Hindi'},
   {identifier:'spanish', name: 'Spanish'},]
+
+  // install npm i openai
+  export const OPEN_API_KEY='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';
